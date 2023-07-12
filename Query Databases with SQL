@@ -1,0 +1,84 @@
+The purpose of this file is to show how we can query databases for specific information using SQL. We will also apply filtering through 
+SQL to only return the information we want.  
+
+The following code shows a SQL query for log in attempts from the "log_in_attempts" database:
+
+select*
+    -> from log_in_attempts;
++----------+----------+------------+------------+---------+-----------------+---------+
+| event_id | username | login_date | login_time | country | ip_address      | success |
++----------+----------+------------+------------+---------+-----------------+---------+
+|        1 | jrafael  | 2022-05-09 | 04:56:27   | CAN     | 192.168.243.140 |       1 |
+|        2 | apatel   | 2022-05-10 | 20:27:27   | CAN     | 192.168.205.12  |       0 |
+|        3 | dkot     | 2022-05-09 | 06:47:41   | USA     | 192.168.151.162 |       1 |
+|        4 | dkot     | 2022-05-08 | 02:00:39   | USA     | 192.168.178.71  |       0 |
+|        5 | jrafael  | 2022-05-11 | 03:05:59   | CANADA  | 192.168.86.232  |       0 |
+|        6 | arutley  | 2022-05-12 | 17:00:59   | MEXICO  | 192.168.3.24    |       0 |
+|        7 | eraab    | 2022-05-11 | 01:45:14   | CAN     | 192.168.170.243 |       1 |
+|        8 | bisles   | 2022-05-08 | 01:30:17   | US      | 192.168.119.173 |       0 |
+|        9 | yappiah  | 2022-05-11 | 13:47:29   | MEX     | 192.168.59.136  |       1 |
+|       10 | jrafael  | 2022-05-12 | 09:33:19   | CANADA  | 192.168.228.221 |       0 |
+|       11 | sgilmore | 2022-05-11 | 10:16:29   | CANADA  | 192.168.140.81  |       0 |
+|       12 | dkot     | 2022-05-08 | 09:11:34   | USA     | 192.168.100.158 |       1 |
+|       13 | mrah     | 2022-05-11 | 09:29:34   | USA     | 192.168.246.135 |       1 |
+|       14 | sbaelish | 2022-05-10 | 10:20:18   | US      | 192.168.16.99   |       1 |
+|       15 | lyamamot | 2022-05-09 | 17:17:26   | USA     | 192.168.183.51  |       0 |
+|       16 | mcouliba | 2022-05-11 | 06:44:22   | CAN     | 192.168.172.189 |       1 |
+|       17 | pwashing | 2022-05-11 | 02:33:02   | USA     | 192.168.81.89   |       1 |
+|       18 | pwashing | 2022-05-11 | 19:28:50   | US      | 192.168.66.142  |       0 |
+|       19 | jhill    | 2022-05-12 | 13:09:04   | US      | 192.168.142.245 |       1 |
+|       20 | tshah    | 2022-05-12 | 18:56:36   | MEXICO  | 192.168.109.50  |       0 |
+
+
+To initiate the query the command "select" is entered into line 6. The astrix (*) following the word "select" tells SQL to return all
+columns. Line 7 tells SQL which database I want to pull from. No filters have been applied yet. 
+
+The below code demonstrates how to return specific columns: 
+
+select country, ip_address
+    -> from log_in_attempts;
++---------+-----------------+
+| country | ip_address      |
++---------+-----------------+
+| CAN     | 192.168.243.140 |
+| CAN     | 192.168.205.12  |
+| USA     | 192.168.151.162 |
+| USA     | 192.168.178.71  |
+| CANADA  | 192.168.86.232  |
+| MEXICO  | 192.168.3.24    |
+| CAN     | 192.168.170.243 |
+| US      | 192.168.119.173 |
+| MEX     | 192.168.59.136  |
+| CANADA  | 192.168.228.221 |
+| CANADA  | 192.168.140.81  |
+| USA     | 192.168.100.158 |
+| USA     | 192.168.246.135 |
+
+We can specify which columns we want by typing in the name of each column separated by a comma after the select command. 
+
+Now let's filter for the users who signed in after 18:00: 
+
+select *
+    -> from log_in_attempts
+    -> where login_time > '18:00';
++----------+----------+------------+------------+---------+-----------------+---------+
+| event_id | username | login_date | login_time | country | ip_address      | success |
++----------+----------+------------+------------+---------+-----------------+---------+
+|        2 | apatel   | 2022-05-10 | 20:27:27   | CAN     | 192.168.205.12  |       0 |
+|       18 | pwashing | 2022-05-11 | 19:28:50   | US      | 192.168.66.142  |       0 |
+|       20 | tshah    | 2022-05-12 | 18:56:36   | MEXICO  | 192.168.109.50  |       0 |
+|       23 | yappiah  | 2022-05-10 | 18:11:53   | MEXICO  | 192.168.200.48  |       1 |
+|       28 | aestrada | 2022-05-09 | 19:28:12   | MEXICO  | 192.168.27.57   |       0 |
+|       34 | drosas   | 2022-05-11 | 21:02:04   | US      | 192.168.45.93   |       0 |
+|       42 | cgriffin | 2022-05-09 | 23:04:05   | US      | 192.168.4.157   |       0 |
+|       51 | jrafael  | 2022-05-10 | 22:40:01   | CANADA  | 192.168.148.115 |       1 |
+|       52 | cjackson | 2022-05-10 | 22:07:07   | CAN     | 192.168.58.57   |       0 |
+|       54 | jreckley | 2022-05-10 | 19:31:19   | MEXICO  | 192.168.167.152 |       1 |
+|       57 | asundara | 2022-05-12 | 21:13:02   | US      | 192.168.211.201 |       1 |
+|       60 | acook    | 2022-05-11 | 21:46:00   | CAN     | 192.168.54.45   |       1 |
+|       64 | apatel   | 2022-05-10 | 22:00:09   | CANADA  | 192.168.172.71  |       1 |
+|       65 | aalonso  | 2022-05-09 | 23:42:12   | MEX     | 192.168.52.37   |       1 |
+|       66 | aestrada | 2022-05-08 | 21:58:32   | MEX     | 192.168.67.223  |       1 |
+|       69 | wjaffrey | 2022-05-11 | 19:55:15   | USA     | 192.168.100.17  |       0 |
+|       82 | abernard | 2022-05-12 | 23:38:46   | MEX     | 192.168.234.49  |       0 |
+|       87 | apatel   | 2022-05-08 | 22:38:31   | CANADA  | 192.168.132.153 |       0 |
