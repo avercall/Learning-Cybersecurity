@@ -16,7 +16,7 @@ drwxr-xr-x 1 root        root          4096 Jul 12 20:52 ..
 -rw-r--r-- 1 researcher2 research_team 3574 Jul 12 20:52 .bashrc
 -rw-r--r-- 1 researcher2 research_team 3574 Jul 12 20:52 .profile
 drwxr-xr-x 3 researcher2 research_team 4096 Jul 12 20:52 projects
-researcher2@0c87e4e5eade:~$ 
+
 
 Starting with line 8, the command "pwd" shows that the user is in the reasearcher2 directory, as shown on line 9. 
 The command "ls" returns files within the current directory. Adding the "-la" option returns all file (including hidden ones) and their 
@@ -33,3 +33,23 @@ characters that describe the authorizations of the user are "rwx" meaning that t
 The second set of 3 is "r-x" meaning that the group has read and execute permissions but does not have write permissions. The final
 set of 3 is also "r-x" meaning that others have read and execute permissions but cannot write. 
 
+The following code demonstrates how we can change user permissions using the command "chmod". We will be changing the user permissions
+of the ".bash_history" file (line 14 above):
+
+
+researcher2@0c87e4e5eade:~$ chmod u-r,g+w .bash_history
+researcher2@0c87e4e5eade:~$ ls -la
+total 32
+drwxr-xr-x 3 researcher2 research_team 4096 Jul 12 21:48 .
+drwxr-xr-x 1 root        root          4096 Jul 12 20:52 ..
+--w--w---- 1 researcher2 research_team  268 Jul 12 22:22 .bash_history
+-rw-r--r-- 1 researcher2 research_team  220 Apr 18  2019 .bash_logout
+-rw-r--r-- 1 researcher2 research_team 3574 Jul 12 20:52 .bashrc
+-rw-r--r-- 1 researcher2 research_team 3574 Jul 12 20:52 .profile
+drwxr-xr-x 3 researcher2 research_team 4096 Jul 12 20:52 projects
+
+
+The command "chmod" in line 40 allows for us to edit the authorizations of a file or directory. The code "u-r" means that I 
+removed read permissions from the user. The code "g+w" means that I gave write permissions to the group. If I wanted to add 
+execute permissions to others I would have typed "o+x" following the "g+w" code. the ".bash_history" at the end of line 40
+indicates which file's permissions I want to edit. Comparing line 45 to line 14 above we can see that the permissions have changed.
