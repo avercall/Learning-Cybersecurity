@@ -54,7 +54,7 @@ select country, ip_address
 | USA     | 192.168.100.158 |
 | USA     | 192.168.246.135 |
 
-We can specify which columns we want by typing in the name of each column separated by a comma after the select command. 
+We can specify which columns we want by typing each column's name separated by a comma after the select command. 
 
 Now let's filter for the users who signed in after 18:00: 
 
@@ -82,3 +82,27 @@ select *
 |       69 | wjaffrey | 2022-05-11 | 19:55:15   | USA     | 192.168.100.17  |       0 |
 |       82 | abernard | 2022-05-12 | 23:38:46   | MEX     | 192.168.234.49  |       0 |
 |       87 | apatel   | 2022-05-08 | 22:38:31   | CANADA  | 192.168.132.153 |       0 |
+
+By adding the "where" command, we can filter for all rows where the value in the "login_time" values is greater than 18:00.
+
+Taking this filter one step further, we can also add a filter for only users in Mexico:
+
+select *
+    -> from log_in_attempts
+    -> where login_time > '18:00' and country = 'mexico';
++----------+----------+------------+------------+---------+-----------------+---------+
+| event_id | username | login_date | login_time | country | ip_address      | success |
++----------+----------+------------+------------+---------+-----------------+---------+
+|       20 | tshah    | 2022-05-12 | 18:56:36   | MEXICO  | 192.168.109.50  |       0 |
+|       23 | yappiah  | 2022-05-10 | 18:11:53   | MEXICO  | 192.168.200.48  |       1 |
+|       28 | aestrada | 2022-05-09 | 19:28:12   | MEXICO  | 192.168.27.57   |       0 |
+|       54 | jreckley | 2022-05-10 | 19:31:19   | MEXICO  | 192.168.167.152 |       1 |
+|      111 | aestrada | 2022-05-10 | 22:00:26   | MEXICO  | 192.168.76.27   |       0 |
+|      116 | tmitchel | 2022-05-10 | 20:33:27   | MEXICO  | 192.168.119.26  |       1 |
+|      118 | smartell | 2022-05-12 | 23:21:31   | MEXICO  | 192.168.173.196 |       1 |
+|      119 | tmitchel | 2022-05-11 | 23:07:13   | MEXICO  | 192.168.110.175 |       1 |
+|      158 | smartell | 2022-05-09 | 19:30:32   | MEXICO  | 192.168.190.178 |       1 |
+|      199 | yappiah  | 2022-05-11 | 19:34:48   | MEXICO  | 192.168.44.232  |       0 |
++----------+----------+------------+------------+---------+-----------------+---------+
+
+By adding the "and" statement, we were able to filter for all log in attempts that happened after 18:00 in Mexico. 
